@@ -8,7 +8,7 @@ namespace Wk5Ex2
 {
     class Program
     {
-        //I initialized the dictionary contactList at the beginning so I could reference it later in methods and in main
+        //I initialized the dictionary contactList at the beginning so I could reference it later in methods and in main. I set up the phone number as a string so i didnt have to worry about the format the user entered
         static Dictionary<string, string> contactList = new Dictionary<string, string>();
 
         //Created a method called addContact to edit the dictionary contactList
@@ -59,14 +59,25 @@ namespace Wk5Ex2
         //Method to display all stored contacts
         public static void displayContact()
         {
-            //Used a foreach statement, using the key value pairs to list them out
-            foreach (KeyValuePair<string, string> contact in contactList)
+            //Initialized an int myCount to see if there are any values entered into contactList
+            int myCount = contactList.Count();
+            //Set if statement to inform user there are no entries in the contactList
+            if (myCount == 0)
             {
-                //Writes out Name and Phone number, using the 0 and 1 postions, from teh .key and .Value 
-                Console.WriteLine("Name: {0}, Phone Number: {1}", contact.Key, contact.Value);
+                //Writes a message informing the user there are no contacts
+                Console.WriteLine("There are no contacts entered.");
             }
+            //Else statement to proceed with normal displayContact() method
+            else
+            {
+                //Used a foreach statement, using the key value pairs to list them out
+                foreach (KeyValuePair<string, string> contact in contactList)
+                {
+                    //Writes out Name and Phone number, using the 0 and 1 postions, from teh .key and .Value 
+                    Console.WriteLine("Name: {0}, Phone Number: {1}", contact.Key, contact.Value);
+                }
 
-            
+            }
         }
 
         static void Main(string[] args)
@@ -105,9 +116,19 @@ namespace Wk5Ex2
                 //Prompts option 4, Exiting the application
                 Console.WriteLine("5. Exit");
 
-                //Converts userChoice to an entered value to control the switch case
-                userChoice = Convert.ToInt32(Console.ReadLine());
+                //Try to catch improper input in the user selection. Kept it in the while loop so the user doesnt need to restart the application in case of a mistake
+                try
+                {
+                    //Converts userChoice to an entered value to control the switch case
+                    userChoice = Convert.ToInt32(Console.ReadLine());
+                }
+                //Catch error to make sure no values are entered incorrectly
+                catch (Exception e)
+                {
+                    //Writes out error message for user
+                    Console.WriteLine("Please enter a valid number (1-5)");
 
+                }
                 //used a switch case as a form of user GUI
                 switch (userChoice)
                 {
